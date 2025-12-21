@@ -11,6 +11,8 @@ pnpm-debug.log*
 .env.local
 .env.*.local
 
+frontend/.next/
+
 # Build outputs
 dist/
 build/
