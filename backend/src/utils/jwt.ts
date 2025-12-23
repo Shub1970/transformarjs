@@ -1,13 +1,25 @@
-import { SigningOptions } from "crypto";
 import "dotenv/config";
-import jwt from "jsonwebtoken";
+import jwt, { SignOptions } from "jsonwebtoken";
 
-type data = { userId: string; email?: string };
-export function createJWT(data: data, expiresIn: string): string {
+export interface JwtPayload {
+  userId: string;
+  email?: string;
+}
+
+export function createJWT(
+  payload: JwtPayload,
+  expiresIn: string,
+  options?: SignOptions,
+): string {
   const secret = process.env.SECRET;
+
   if (!secret) {
     throw new Error("SECRET environment variable is not set");
   }
-  return jwt.sign(data, secret, { expiresIn: expiresIn, algorithm: "HS256" });
-}
 
+  return jwt.sign(payload, secret, {
+    expiresIn,
+    algorithm: "HS256",
+    ...options,
+  } as any);
+}
