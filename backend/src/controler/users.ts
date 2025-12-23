@@ -17,4 +17,6 @@ export async function createGuestUser(req: Request, res: Response) {
   const response = await prisma.guestUser.create({
     data: guestUser,
   });
+
+  res.json(response);
 }

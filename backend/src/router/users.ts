@@ -4,6 +4,6 @@ import { createGuestUser } from "../controler/users";
 
 const router = express.Router();
 
-router.post("/guest", createGuestUser);
+router.get("/guest", createGuestUser);
 
 export default router;
