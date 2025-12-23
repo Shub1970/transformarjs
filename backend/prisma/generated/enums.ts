@@ -9,11 +9,7 @@
 * 🟢 You can import this file directly.
 */
 
-export const Provider = {
-  GOOGLE: 'GOOGLE',
-  GITHUB: 'GITHUB',
-  FACEBOOK: 'FACEBOOK',
-  MICROSOFT: 'MICROSOFT'
-} as const
 
-export type Provider = (typeof Provider)[keyof typeof Provider]
+
+// This file is empty because there are no enums in the schema.
+export {}

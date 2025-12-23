@@ -51,9 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  GuestUser: 'GuestUser',
   User: 'User',
-  OauthAccount: 'OauthAccount',
-  RefreshToken: 'RefreshToken'
+  Post: 'Post'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,53 +72,42 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const GuestUserScalarFieldEnum = {
+  id: 'id',
+  ipAddress: 'ipAddress',
+  usageCount: 'usageCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastUsedAt: 'lastUsedAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type GuestUserScalarFieldEnum = (typeof GuestUserScalarFieldEnum)[keyof typeof GuestUserScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  username: 'username',
-  firstName: 'firstName',
-  lastName: 'lastName',
-  avatarUrl: 'avatarUrl',
-  emailVerified: 'emailVerified',
-  password: 'password',
-  isActive: 'isActive',
+  name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  lastLogin: 'lastLogin'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const OauthAccountScalarFieldEnum = {
+export const PostScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  provider: 'provider',
-  providerUserId: 'providerUserId',
-  providerAccessToken: 'providerAccessToken',
-  providerRefreshToken: 'providerRefreshToken',
-  providerTokenExpiresAt: 'providerTokenExpiresAt',
-  providerData: 'providerData',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type OauthAccountScalarFieldEnum = (typeof OauthAccountScalarFieldEnum)[keyof typeof OauthAccountScalarFieldEnum]
-
-
-export const RefreshTokenScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  tokenHash: 'tokenHash',
-  ipAddress: 'ipAddress',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  expiresAt: 'expiresAt',
-  lastUsedAt: 'lastUsedAt',
-  isRevoked: 'isRevoked'
+  title: 'title',
+  content: 'content',
+  published: 'published',
+  viewCount: 'viewCount',
+  authorId: 'authorId'
 } as const
 
-export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -129,13 +118,6 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: 'JsonNull'
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -144,11 +126,10 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-export const JsonNullValueFilter = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull',
-  AnyNull: 'AnyNull'
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
 } as const
 
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
