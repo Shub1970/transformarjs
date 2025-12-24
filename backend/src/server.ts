@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { Prisma, PrismaClient } from "../prisma/generated/client";
 import prisma from "./utils/connect";
 import userRouter from "./router/users";
@@ -9,6 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(cookieParser());
+
+app.set("trust proxy", true);
 
 const port = process.env.PORT || 3000;
 
@@ -19,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/users", userRouter);
+app.use("/api/auth", userRouter);
 
 const server = app.listen(port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`),

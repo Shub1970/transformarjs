@@ -7,39 +7,21 @@ datasource db {
         provider = "postgresql"
 }
 
-model GuestUser {
-        id         Int       @id @default(autoincrement())
-        ipAddress  String    @unique @map("ip_address")
-        usageCount Int       @default(0) @map("usage_count")
-        createdAt  DateTime  @default(now()) @map("created_at")
-        updatedAt  DateTime  @updatedAt @map("updated_at")
-        lastUsedAt DateTime? @map("last_used_at")
-        expiresAt  DateTime  @map("expires_at")
-
-        @@map("guest_users")
+enum UserType {
+        GUEST
+        AUTHENTICATED
 }
 
-model User {
-        id        Int      @id @default(autoincrement())
-        email     String   @unique
-        name      String?
-        posts     Post[]
-        createdAt DateTime @default(now()) @map("created_at")
-        updatedAt DateTime @updatedAt @map("updated_at")
+model GuestSession {
+        id         Int      @id @default(autoincrement())
+        ipAddress  String   @map("ip_address")
+        userAgent  String   @map("user_agent")
+        sessionId  String   @unique @map("session_id")
+        usageCount Int?     @default(5) @map("usage_count")
+        userType   UserType @default(GUEST)
+        createdAt  DateTime @default(now()) @map("created_at")
+        updatedAt  DateTime @updatedAt @map("updated_at")
 
-        @@map("users")
-}
-
-model Post {
-        id        Int      @id @default(autoincrement())
-        createdAt DateTime @default(now()) @map("created_at")
-        updatedAt DateTime @updatedAt @map("updated_at")
-        title     String
-        content   String?
-        published Boolean  @default(false)
-        viewCount Int      @default(0)
-        author    User?    @relation(fields: [authorId], references: [id])
-        authorId  Int?
-
-        @@map("posts")
+        @@index([ipAddress, sessionId])
+        @@map("guest_session")
 }
