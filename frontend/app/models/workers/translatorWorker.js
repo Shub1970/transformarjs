@@ -15,13 +15,15 @@ class PipelineSingleton {
 }
 
 self.addEventListener("message", async (event) => {
-  self.postMessage({ status: "initialize worker" });
-  let translator = await PipelineSingleton.getInstance((x) => {});
+  self.postMessage({ status: "progress" });
+  let translator = await PipelineSingleton.getInstance((x) => {
+    self.postMessage(x);
+  });
   self.postMessage({ status: "pipline constracted" });
   let output = await translator(event.data.text, {
-    src_lang: "eng_Latn",
-    tgt_lang: "hin_Deva",
+    src_lang: event.data?.src_lang || "eng_Latn",
+    tgt_lang: event.data?.tgt_lang || "hin_Deva",
   });
 
-  self.postMessage({ status: "translation complete", output: output });
+  self.postMessage({ status: "complete", output: output });
 });

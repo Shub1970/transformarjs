@@ -1,49 +1,59 @@
 import Link from "next/link";
-
 import { Code2, LogIn, LogOut } from "lucide-react";
 
 export default function NavBar() {
+  function isActive(nav: string) {
+    return nav === "/";
+  }
   return (
-    <nav className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="bg-indigo-600 p-2 rounded-lg group-hover:bg-indigo-500 transition-colors">
-              <Code2 className="h-6 w-6 text-white" />
-            </div>
-            <span className="font-bold text-xl tracking-tight text-white">
-              AI Html<span className="text-indigo-400">Converter</span>
-            </span>
+    <nav className="sticky top-0 z-40 bg-black text-yellow-400 p-4 border-b-2 border-black">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link
+          href="/"
+          className="text-2xl font-black italic tracking-tighter flex items-center gap-2"
+        >
+          <span className="bg-yellow-400 text-black px-1">TRANSFORM</span>
+          <span>.JS</span>
+        </Link>
+
+        <div className="hidden md:flex items-center gap-8 font-bold">
+          <Link
+            href="/"
+            className={`${isActive("/") ? "underline" : "hover:opacity-70"}`}
+          >
+            START
           </Link>
+          <Link
+            href="/models"
+            className={`${isActive("/models") ? "underline" : "hover:opacity-70"}`}
+          >
+            MODELS
+          </Link>
+          <Link
+            href="/chatbot"
+            className={`${isActive("/chatbot") ? "underline" : "hover:opacity-70"}`}
+          >
+            CHAT
+          </Link>
+          <Link
+            href="/image-gen"
+            className={`${isActive("/image-gen") ? "underline" : "hover:opacity-70"}`}
+          >
+            GENERATE
+          </Link>
+        </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="hidden sm:flex items-center px-3 py-1 bg-slate-800 rounded-full border border-slate-700">
-              <span className="text-xs text-slate-400">
-                Guest Limit:{" "}
-                <span className="text-indigo-400 font-bold">
-                  remainingGuestConversions
-                </span>{" "}
-                left
-              </span>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3 bg-slate-800/50 py-1.5 px-3 rounded-full border border-slate-700">
-                <div className="flex flex-col text-left">
-                  <span className="text-xs font-semibold text-white leading-none"></span>
-                  <span className="text-[10px] text-slate-400 leading-none mt-0.5">
-                    Premium
-                  </span>
-                </div>
-              </div>
-              <button
-                className="p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800"
-                title="Sign Out"
-              >
-                <LogOut className="h-4 w-4" />
-              </button>
-            </div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
+            <span className="text-sm opacity-70 hidden sm:block"></span>
+            <button className="bg-yellow-400 text-black px-4 py-1 rounded-sm text-sm font-bold border-2 border-yellow-400 hover:bg-black hover:text-yellow-400 transition-all">
+              LOGOUT
+            </button>
           </div>
+          ) : (
+          <button className="bg-yellow-400 text-black px-4 py-1 rounded-sm text-sm font-bold border-2 border-yellow-400 hover:bg-black hover:text-yellow-400 transition-all">
+            LOGIN
+          </button>
         </div>
       </div>
     </nav>
