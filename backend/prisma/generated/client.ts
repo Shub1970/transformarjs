@@ -44,3 +44,8 @@ export { Prisma }
  * 
  */
 export type GuestSession = Prisma.GuestSessionModel
+/**
+ * Model LanguageList
+ * 
+ */
+export type LanguageList = Prisma.LanguageListModel

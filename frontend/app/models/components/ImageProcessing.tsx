@@ -1,93 +1,154 @@
-//image processing
-
 import { Button } from "@/components/ui/button";
-import { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 
 export default function ImageProcessing() {
-  const [progress, setProgress] = useState("transform");
-  const [imageData, setImageData] = useState(null);
+  const [progress, setProgress] = useState("idle");
   const [imageURL, setImageURL] = useState("");
+  const [imageData, setImageData] = useState<any>(null);
+  const [error, setError] = useState("");
+  const [isDragging, setIsDragging] = useState(false); // Track drag state
   const worker = useRef<Worker | null>(null);
-  const canvasref = useRef(null);
+
   useEffect(() => {
     if (!worker.current) {
       worker.current = new Worker(
         new URL("../workers/backgroundRemoving.js", import.meta.url),
-        {
-          type: "module",
-        },
+        { type: "module" },
       );
     }
 
-    const handlePogress = (e) => {
+    const handleProgress = (e: MessageEvent) => {
       switch (e.data.status) {
         case "initial":
-          setProgress("initial");
+          setProgress("processing");
           break;
         case "complete":
-          console.log("data", e.data.output[0]);
           setImageData(e.data.output[0]);
           setProgress("complete");
           break;
       }
     };
 
-    worker.current?.addEventListener("message", handlePogress);
-
-    return () => {
-      worker.current?.removeEventListener("message", handlePogress);
-      // worker.current?.terminate();
-      // worker.current = null;
-    };
+    worker.current.addEventListener("message", handleProgress);
+    return () => worker.current?.removeEventListener("message", handleProgress);
   }, []);
 
   useEffect(() => {
-    if (!imageData || !canvasref.current) return;
-
+    if (!imageData) return;
     const { data, width, height } = imageData;
-
-    const canvas = document.createElement("canvas") as HTMLCanvasElement;
+    const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const imgData = new ImageData(new Uint8ClampedArray(data), width, height);
+    const imgDataObj = new ImageData(
+      new Uint8ClampedArray(data),
+      width,
+      height,
+    );
+    ctx.putImageData(imgDataObj, 0, 0);
 
-    ctx.putImageData(imgData, 0, 0, width, height);
     canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      setImageURL(url);
+      if (blob) {
+        if (imageURL) URL.revokeObjectURL(imageURL);
+        const url = URL.createObjectURL(blob);
+        setImageURL(url);
+      }
     });
-    // clear previous canvas
   }, [imageData]);
 
-  const handleFunc = useCallback(() => {
-    if (worker.current) {
-      worker.current.postMessage("hellw");
+  // Unified file processing logic
+  const processFile = (file: File) => {
+    const validType = ["image/jpeg", "image/png"];
+    if (!validType.includes(file.type)) {
+      setError("Please select a JPG or PNG image.");
+      return;
     }
-  }, []);
+    setError("");
+    const url = URL.createObjectURL(file);
+    setImageURL(url);
+    if (worker.current) {
+      worker.current.postMessage({ url });
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) processFile(file);
+  };
+
+  // Drag handlers
+  function handleDragOver(event: React.DragEvent) {
+    event.preventDefault();
+    setIsDragging(true);
+  }
+  function handleDragLeave(event: React.DragEvent) {
+    event.preventDefault();
+    setIsDragging(false);
+  }
+
+  function handleDrop(event: React.DragEvent) {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (file) processFile(file);
+  }
+
   return (
-    <div className="space-y-4">
-      {!imageData && (
-        <div className="space-y-4">
-          <div className="text-center py-12 border-2 border-dashed border-black">
-            <p className="font-bold mb-4">DRAG & DROP IMAGE HERE</p>
-            <input type="file" className="hidden" id="file-upload" />
-            <label
-              htmlFor="file-upload"
-              className="bg-black text-white px-6 py-2 cursor-pointer font-bold hover:bg-yellow-400 hover:text-black transition-colors"
-            >
-              BROWSE FILES
-            </label>
-          </div>
-          <Button onClick={() => handleFunc()}>start worker</Button>
+    <div className="space-y-4 max-w-xl mx-auto p-4">
+      {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
+
+      {!imageURL && (
+        <div
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          className={`
+            relative text-center py-12 border-2 border-dashed transition-all duration-200
+            ${isDragging ? "border-yellow-400 bg-yellow-50 scale-[1.02]" : "border-black bg-white"}
+          `}
+        >
+          <p className="font-bold mb-4 uppercase">
+            {isDragging ? "Drop it now!" : "Drag & Drop Image Here"}
+          </p>
+
+          <input
+            type="file"
+            className="hidden"
+            id="file-upload"
+            accept="image/png, image/jpeg"
+            onChange={handleFileChange}
+          />
+
+          <label
+            htmlFor="file-upload"
+            className="bg-black text-white px-6 py-2 cursor-pointer font-bold hover:bg-yellow-400 hover:text-black transition-colors"
+          >
+            BROWSE FILES
+          </label>
         </div>
       )}
-      {imageURL !== "" && (
-        <div className="image">
-          <img src={imageURL} />
+
+      {imageURL && (
+        <div className="image border rounded-lg overflow-hidden shadow-lg bg-white p-4">
+          <img src={imageURL} alt="Output" className="w-full h-auto rounded" />
+          <div className="flex gap-2 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setImageURL("");
+                setImageData(null);
+                setProgress("idle");
+              }}
+            >
+              Reset
+            </Button>
+            {progress === "processing" && (
+              <span className="text-sm animate-pulse flex items-center">
+                Processing...
+              </span>
+            )}
+          </div>
         </div>
       )}
     </div>

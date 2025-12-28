@@ -3,7 +3,7 @@ import { Code2, LogIn, LogOut } from "lucide-react";
 
 export default function NavBar() {
   function isActive(nav: string) {
-    return nav === "/";
+    return false;
   }
   return (
     <nav className="sticky top-0 z-40 bg-black text-yellow-400 p-4 border-b-2 border-black">
@@ -30,10 +30,10 @@ export default function NavBar() {
             MODELS
           </Link>
           <Link
-            href="/chatbot"
+            href="/blogs"
             className={`${isActive("/chatbot") ? "underline" : "hover:opacity-70"}`}
           >
-            CHAT
+            BLOGS
           </Link>
           <Link
             href="/image-gen"

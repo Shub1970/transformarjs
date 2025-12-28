@@ -15,13 +15,12 @@ class imagePipelineSingleTone {
   }
 }
 
-self.addEventListener("message", async () => {
+self.addEventListener("message", async (event) => {
   self.postMessage({ status: "initiate" });
   let back_ground_removal = await imagePipelineSingleTone.getInstance((x) => {
     self.postMessage(x);
   });
-  const url =
-    "http://localhost:3000/Change-remove-backgrounds-before-resized.jpg";
+  const url = event.data.url;
 
   const output = await back_ground_removal(url);
   self.postMessage({ status: "complete", output: output });

@@ -22,3 +22,8 @@ export * from './enums.js';
  * 
  */
 export type GuestSession = Prisma.GuestSessionModel
+/**
+ * Model LanguageList
+ * 
+ */
+export type LanguageList = Prisma.LanguageListModel

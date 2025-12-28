@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getRequest } from "@/app/lib/apicall";
+import { getRequest } from "@/lib/apicall";
 
 interface Languages {
   language: string;

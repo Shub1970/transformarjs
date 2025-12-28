@@ -1,9 +1,4 @@
-"use client";
-import React from "react";
-
-interface HomeProps {
-  onLogin: () => void;
-}
+import GuestButton from "./components/GuestButton";
 
 export default function Home() {
   return (
@@ -20,9 +15,7 @@ export default function Home() {
             yellow-tinted workspace.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-black text-yellow-400 px-8 py-4 text-xl font-bold hover:scale-105 transition-transform">
-              TRY AS GUEST
-            </button>
+            <GuestButton />
             <button className="bg-white text-black border-4 border-black px-8 py-4 text-xl font-bold hover:scale-105 transition-transform">
               GOOGLE LOGIN
             </button>

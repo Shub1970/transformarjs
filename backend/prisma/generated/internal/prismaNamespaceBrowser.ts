@@ -51,7 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  GuestSession: 'GuestSession'
+  GuestSession: 'GuestSession',
+  LanguageList: 'LanguageList'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -82,6 +83,17 @@ export const GuestSessionScalarFieldEnum = {
 } as const
 
 export type GuestSessionScalarFieldEnum = (typeof GuestSessionScalarFieldEnum)[keyof typeof GuestSessionScalarFieldEnum]
+
+
+export const LanguageListScalarFieldEnum = {
+  id: 'id',
+  language: 'language',
+  language_code: 'language_code',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LanguageListScalarFieldEnum = (typeof LanguageListScalarFieldEnum)[keyof typeof LanguageListScalarFieldEnum]
 
 
 export const SortOrder = {

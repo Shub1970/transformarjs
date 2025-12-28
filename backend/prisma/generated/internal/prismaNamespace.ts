@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  GuestSession: 'GuestSession'
+  GuestSession: 'GuestSession',
+  LanguageList: 'LanguageList'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guestSession"
+    modelProps: "guestSession" | "languageList"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LanguageList: {
+      payload: Prisma.$LanguageListPayload<ExtArgs>
+      fields: Prisma.LanguageListFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LanguageListFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LanguageListFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>
+        }
+        findFirst: {
+          args: Prisma.LanguageListFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LanguageListFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>
+        }
+        findMany: {
+          args: Prisma.LanguageListFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>[]
+        }
+        create: {
+          args: Prisma.LanguageListCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>
+        }
+        createMany: {
+          args: Prisma.LanguageListCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LanguageListCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>[]
+        }
+        delete: {
+          args: Prisma.LanguageListDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>
+        }
+        update: {
+          args: Prisma.LanguageListUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>
+        }
+        deleteMany: {
+          args: Prisma.LanguageListDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LanguageListUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LanguageListUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>[]
+        }
+        upsert: {
+          args: Prisma.LanguageListUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguageListPayload>
+        }
+        aggregate: {
+          args: Prisma.LanguageListAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLanguageList>
+        }
+        groupBy: {
+          args: Prisma.LanguageListGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LanguageListGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LanguageListCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LanguageListCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -529,6 +604,17 @@ export const GuestSessionScalarFieldEnum = {
 } as const
 
 export type GuestSessionScalarFieldEnum = (typeof GuestSessionScalarFieldEnum)[keyof typeof GuestSessionScalarFieldEnum]
+
+
+export const LanguageListScalarFieldEnum = {
+  id: 'id',
+  language: 'language',
+  language_code: 'language_code',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LanguageListScalarFieldEnum = (typeof LanguageListScalarFieldEnum)[keyof typeof LanguageListScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -726,6 +812,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   guestSession?: Prisma.GuestSessionOmit
+  languageList?: Prisma.LanguageListOmit
 }
 
 /* Types for Logging */

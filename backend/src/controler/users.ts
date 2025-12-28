@@ -1,11 +1,16 @@
 import "dotenv/config";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import prisma from "../utils/connect";
+import { getTime } from "../utils/times";
 import { GuestSessionCreateInput } from "../../prisma/generated/models";
 
-export async function createGuestSession(req: Request, res: Response) {
+export async function createGuestSession(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const ip_address = req?.ip || "";
   const user_agent = req.headers["user-agent"] || "";
   const unique_id = uuidv4();
@@ -20,9 +25,15 @@ export async function createGuestSession(req: Request, res: Response) {
       data: guest,
     });
 
-    const secrete = process.env.SECRETE;
+    const secrete = process.env.GUEST_SECRETE;
+    const expirein = process.env.GUEST_ACCESS_TOKEN_EXPIRE || "1h";
+    const maxAge = getTime(expirein);
     if (!secrete) {
-      throw new Error("secrete not accessible");
+      const error = new Error("secrete key now found");
+      error.status = 400;
+      error.message = "secrete not fetch";
+      error.details = { reason: "secrete not fetch", fiels: "" };
+      next(error);
     }
 
     const access_token = jwt.sign(
@@ -32,21 +43,21 @@ export async function createGuestSession(req: Request, res: Response) {
         type: "guest",
       },
       secrete,
-      { expiresIn: "1h" },
+      { expiresIn: expirein },
     );
 
     res.cookie("access_token", access_token, {
       httpOnly: true,
       secure: process.env.NODE === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 1000,
+      maxAge: maxAge,
     });
 
     res.cookie("user_type", "guest", {
       httpOnly: true,
       secure: process.env.NODE === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 1000,
+      maxAge: maxAge,
     });
 
     res.json({
@@ -54,10 +65,6 @@ export async function createGuestSession(req: Request, res: Response) {
       message: "guest is created",
     });
   } catch (err) {
-    res.send(401).json({
-      success: false,
-      error: err,
-      message: "guest not created",
-    });
+    next(err);
   }
 }

@@ -25,3 +25,14 @@ model GuestSession {
         @@index([ipAddress, sessionId])
         @@map("guest_session")
 }
+
+model LanguageList {
+        id            Int      @id @default(autoincrement())
+        language      String   @unique
+        language_code String   @unique
+        createdAt     DateTime @default(now()) @map("created_at")
+        updatedAt     DateTime @updatedAt @map("updated_at")
+
+        @@index([language_code, language])
+        @@map("language_lists")
+}
