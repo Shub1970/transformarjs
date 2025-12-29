@@ -5,11 +5,6 @@ import LanguageTranslator from "./components/Translation";
 import { TOOLS } from "../data/tools";
 import ImageProcessing from "./components/ImageProcessing";
 
-interface ModelsProps {
-  user: UserState;
-  onIncrementUsage: () => boolean;
-}
-
 export default function Models() {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
 
