@@ -9,8 +9,11 @@ export type AuthStoreApi = ReturnType<typeof createAuthStore>;
 export const AuthStoreContext = createContext<AuthStoreApi | undefined>(
   undefined,
 );
+type AuthStoreContextPops = {
+  children: ReactNode;
+};
 
-export function AuthStoreProvider({ children }: { children: ReactNode }) {
+export function AuthStoreProvider({ children }: AuthStoreContextPops) {
   const [store] = useState(() => createAuthStore());
 
   return (
@@ -21,11 +24,11 @@ export function AuthStoreProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAuthStore<T>(selector: (store: AuthStore) => T): T {
-  const store = useContext(AuthStoreContext);
+  const authStoreContext = useContext(AuthStoreContext);
 
-  if (!store) {
+  if (!authStoreContext) {
     throw new Error("useAuthStore must be used inside AuthStoreProvider");
   }
 
-  return useStore(store, selector);
+  return useStore(authStoreContext, selector);
 }

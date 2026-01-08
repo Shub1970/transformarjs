@@ -6,47 +6,41 @@ import { useAuthStore } from "@/lib/providers/auth-provider";
 
 export default function AuthSuccessPage() {
   const router = useRouter();
-  const { login, setUser } = useAuthStore((state) => ({
-    login: state.login,
-    setUser: state.setUser,
-  }));
+
+  const { setUser } = useAuthStore((state) => state);
+
+  // 🔒 guard to ensure one-time execution
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_API}/api/auth/me`,
-          {
-            method: "GET",
-            credentials: "include",
-          },
+          { credentials: "include" },
         );
 
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success && data.user) {
-            // Update auth store
-            login();
-            setUser(data.user);
-
-            // Redirect to models page
-            router.push("/models");
-          } else {
-            console.error("Failed to fetch user data:", data);
-            router.push("/?error=auth_failed");
-          }
-        } else {
-          console.error("Failed to fetch user data:", response.status);
+        if (!response.ok) {
           router.push("/?error=auth_failed");
+          return;
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+
+        const data = await response.json();
+        console.log("user data", data);
+
+        if (!data?.success || !data?.user) {
+          router.push("/?error=auth_failed");
+          return;
+        }
+
+        setUser(data.user);
+        router.push("/models");
+      } catch {
         router.push("/?error=auth_failed");
       }
     };
 
     fetchUserData();
-  }, [login, setUser, router]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center">
