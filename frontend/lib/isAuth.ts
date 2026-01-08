@@ -35,3 +35,30 @@ export async function getUserType() {
 }
 
 // export async function deleteCookies(){}
+
+/**
+ * Check if user is authenticated and fetch user data (client-side)
+ * @returns User object if authenticated, null otherwise
+ */
+export async function checkAuth(): Promise<any | null> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API}/api/auth/me`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.success && data.user) {
+        return data.user;
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error("Error checking auth:", error);
+    return null;
+  }
+}

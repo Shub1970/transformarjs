@@ -1,4 +1,5 @@
 import GuestButton from "./components/GuestButton";
+import GoogleButton from "./components/GoogleButton";
 
 export default function Home() {
   return (
@@ -16,9 +17,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <GuestButton />
-            <button className="bg-white text-black border-4 border-black px-8 py-4 text-xl font-bold hover:scale-105 transition-transform">
-              GOOGLE LOGIN
-            </button>
+            <GoogleButton />
           </div>
         </section>
 

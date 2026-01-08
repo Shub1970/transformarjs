@@ -5,7 +5,7 @@ export default function GoogleButton() {
     <button
       className="w-full bg-white text-gray-800 hover:bg-gray-100 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center transition-all disabled:opacity-70 disabled:cursor-not-allowed"
       onClick={() => {
-        window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_API}/auth/github`;
+        window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_API}/api/auth/google`;
       }}
     >
       <div>

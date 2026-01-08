@@ -1,6 +1,8 @@
 //guest button
 "use client";
+import { useAuthStore } from "@/lib/providers/auth-provider";
 export default function GuestButton() {
+  const { login } = useAuthStore();
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const response = await fetch(
@@ -11,11 +13,15 @@ export default function GuestButton() {
         },
       );
       if (!response.ok) {
-        console.error("an error occur on login");
+        const error = response.text();
+        console.error("an error occur on login", error);
+        throw new Error("Error occur while login");
       }
     } catch (error) {
       console.error("an error occur on login");
+      throw new Error("Error occur while login");
     }
+    login();
   };
   return (
     <button

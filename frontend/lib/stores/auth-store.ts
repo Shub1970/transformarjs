@@ -1,0 +1,40 @@
+import { createStore } from "zustand/vanilla";
+
+export type User = {
+  id?: number;
+  email?: string;
+  name?: string;
+  profilePicture?: string;
+  userType: "guest" | "authenticated";
+  usageCount?: number;
+  sessionId?: string;
+};
+
+export type AuthState = {
+  isAuthenticated: boolean;
+  user: User | null;
+};
+
+export type AuthAction = {
+  login: () => void;
+  logout: () => void;
+  setUser: (user: User | null) => void;
+  clearUser: () => void;
+};
+
+export type AuthStore = AuthState & AuthAction;
+
+const defautState: AuthState = {
+  isAuthenticated: false,
+  user: null,
+};
+
+export const createAuthStore = (initialState: AuthState = defautState) => {
+  return createStore<AuthStore>()((set) => ({
+    ...initialState,
+    login: () => set(() => ({ isAuthenticated: true })),
+    logout: () => set(() => ({ isAuthenticated: false, user: null })),
+    setUser: (user: User | null) => set(() => ({ user })),
+    clearUser: () => set(() => ({ user: null })),
+  }));
+};

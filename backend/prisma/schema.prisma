@@ -26,13 +26,27 @@ model GuestSession {
         @@map("guest_session")
 }
 
-model LanguageList {
-        id            Int      @id @default(autoincrement())
-        language      String   @unique
-        language_code String   @unique
-        createdAt     DateTime @default(now()) @map("created_at")
-        updatedAt     DateTime @updatedAt @map("updated_at")
+model User {
+	id             Int      @id @default(autoincrement())
+	email          String   @unique
+	name           String?
+	googleId       String   @unique @map("google_id")
+	profilePicture String?  @map("profile_picture")
+	userType       UserType @default(AUTHENTICATED)
+	createdAt      DateTime @default(now()) @map("created_at")
+	updatedAt      DateTime @updatedAt @map("updated_at")
 
-        @@index([language_code, language])
-        @@map("language_lists")
+	@@index([email, googleId])
+	@@map("users")
+}
+
+model LanguageList {
+	id            Int      @id @default(autoincrement())
+	language      String   @unique
+	language_code String   @unique
+	createdAt     DateTime @default(now()) @map("created_at")
+	updatedAt     DateTime @updatedAt @map("updated_at")
+
+	@@index([language_code, language])
+	@@map("language_lists")
 }
