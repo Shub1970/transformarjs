@@ -1,39 +1,36 @@
 import "dotenv/config";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { v4 as uuidv4 } from "uuid";
 import prisma from "../utils/connect";
 import { getTime } from "../utils/times";
-import { GuestSessionCreateInput } from "../../prisma/generated/models";
+import { UserCreateInput } from "../../prisma/generated/models";
 import {
   getGoogleAuthURL,
   getGoogleTokens,
   getGoogleUserInfo,
 } from "../utils/googleOAuth";
+import { verifyJWT } from "../utils/jwt";
 
-export async function createGuestSession(
+export async function createGuestUser(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
   const ip_address = req?.ip || "";
   const user_agent = req.headers["user-agent"] || "";
-  const unique_id = uuidv4();
-  const guest: GuestSessionCreateInput = {
+  const guest: UserCreateInput = {
     ipAddress: ip_address,
     userAgent: user_agent,
-    sessionId: unique_id,
   };
 
   try {
-    const response = await prisma.guestSession.create({
+    const response = await prisma.user.create({
       data: guest,
     });
-
-    const secrete = process.env.GUEST_SECRETE;
-    const expirein = process.env.GUEST_ACCESS_TOKEN_EXPIRE || "1h";
+    const userSecret = process.env.SECRET;
+    const expirein = process.env.ACCESS_TOKEN_EXPIRE || "1h";
     const maxAge = getTime(expirein);
-    if (!secrete) {
+    if (!userSecret) {
       const error = new Error("secrete key now found");
       error.status = 400;
       error.message = "secrete not fetch";
@@ -44,10 +41,10 @@ export async function createGuestSession(
     const access_token = jwt.sign(
       {
         userId: response.id,
-        sessionId: response.sessionId,
+        name: response.name,
         type: "guest",
       },
-      secrete,
+      userSecret,
       { expiresIn: expirein },
     );
 
@@ -65,11 +62,10 @@ export async function createGuestSession(
       maxAge: maxAge,
     });
 
-    res.json({
-      success: true,
-      message: "guest is created",
-    });
+    res.redirect(`${process.env.FRONTEND_URL}/auth/success?user_type=guest`);
   } catch (err) {
+    console.error("Error during Google OAuth callback:", err);
+    res.redirect(`${process.env.FRONTEND_URL}?error=auth_failed`);
     next(err);
   }
 }
@@ -109,16 +105,23 @@ export async function googleAuthCallback(
     // Get user info from Google
     const googleUser = await getGoogleUserInfo(tokens.access_token);
 
+    const ip_address = req?.ip || "";
+    const user_agent = req.headers["user-agent"] || "";
+
     // Find or create user in database
     const user = await prisma.user.upsert({
       where: { googleId: googleUser.id },
       update: {
+        ipAddress: ip_address,
+        userAgent: user_agent,
         email: googleUser.email,
         name: googleUser.name,
         profilePicture: googleUser.picture,
       },
       create: {
         googleId: googleUser.id,
+        ipAddress: ip_address,
+        userAgent: user_agent,
         email: googleUser.email,
         name: googleUser.name,
         profilePicture: googleUser.picture,
@@ -127,8 +130,8 @@ export async function googleAuthCallback(
     });
 
     // Generate JWT token
-    const userSecret = process.env.USER_SECRET;
-    const expireIn = process.env.USER_ACCESS_TOKEN_EXPIRE || "7d";
+    const userSecret = process.env.SECRET;
+    const expireIn = process.env.ACCESS_TOKEN_EXPIRE || "7d";
     const maxAge = getTime(expireIn);
 
     if (!userSecret) {
@@ -141,6 +144,7 @@ export async function googleAuthCallback(
     const access_token = jwt.sign(
       {
         userId: user.id,
+        name: user.name,
         email: user.email,
         type: "authenticated",
       },
@@ -164,7 +168,9 @@ export async function googleAuthCallback(
     });
 
     // Redirect to frontend success page
-    res.redirect(`${process.env.FRONTEND_URL}/auth/success`);
+    res.redirect(
+      `${process.env.FRONTEND_URL}/auth/success?user_type=authenticated`,
+    );
   } catch (err) {
     console.error("Error during Google OAuth callback:", err);
     res.redirect(`${process.env.FRONTEND_URL}?error=auth_failed`);
@@ -189,76 +195,39 @@ export async function getCurrentUser(
     }
 
     // Verify token based on user type
-    let decoded: any;
+    const decoded = await verifyJWT(access_token);
+    // Fetch user from database
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
     if (user_type === "guest") {
-      const guestSecret = process.env.GUEST_SECRETE;
-      if (!guestSecret) {
-        return res.status(500).json({
-          success: false,
-          message: "Server configuration error",
-        });
-      }
-      decoded = jwt.verify(access_token, guestSecret);
-
-      // Fetch guest session
-      const guestSession = await prisma.guestSession.findUnique({
-        where: { id: decoded.userId },
-      });
-
-      if (!guestSession) {
-        return res.status(404).json({
-          success: false,
-          message: "Guest session not found",
-        });
-      }
-
-      return res.json({
-        success: true,
-        user: {
-          id: guestSession.id,
-          userType: "guest",
-          usageCount: guestSession.usageCount,
-          sessionId: guestSession.sessionId,
-        },
-      });
-    } else if (user_type === "authenticated") {
-      const userSecret = process.env.USER_SECRET;
-      if (!userSecret) {
-        return res.status(500).json({
-          success: false,
-          message: "Server configuration error",
-        });
-      }
-      decoded = jwt.verify(access_token, userSecret);
-
-      // Fetch user from database
-      const user = await prisma.user.findUnique({
-        where: { id: decoded.userId },
-      });
-
-      if (!user) {
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
-      }
-
       return res.json({
         success: true,
         user: {
           id: user.id,
-          email: user.email,
           name: user.name,
-          profilePicture: user.profilePicture,
-          userType: "authenticated",
+          userType: "guest",
         },
       });
-    } else {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid user type",
-      });
     }
+    return res.json({
+      success: true,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        profilePicture: user.profilePicture,
+        userType: "authenticated",
+      },
+    });
   } catch (err) {
     console.error("Error getting current user:", err);
     if (err.name === "JsonWebTokenError" || err.name === "TokenExpiredError") {

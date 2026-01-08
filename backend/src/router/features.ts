@@ -1,8 +1,9 @@
 import express from "express";
-import { UserFeatureCreate } from "../controler/features";
+import { UserFeatureCreate, GetTotalFeatureUsage } from "../controler/features";
 
 const router = express.Router();
 
-router.post("/:feature", UserFeatureCreate);
+router.post("/", UserFeatureCreate);
+router.get("/total", GetTotalFeatureUsage);
 
 export default router;

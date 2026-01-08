@@ -247,6 +247,7 @@ export type UserFeatureUsageOrderByWithRelationInput = {
 
 export type UserFeatureUsageWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  feature_userId?: Prisma.UserFeatureUsageFeatureUserIdCompoundUniqueInput
   AND?: Prisma.UserFeatureUsageWhereInput | Prisma.UserFeatureUsageWhereInput[]
   OR?: Prisma.UserFeatureUsageWhereInput[]
   NOT?: Prisma.UserFeatureUsageWhereInput | Prisma.UserFeatureUsageWhereInput[]
@@ -256,7 +257,7 @@ export type UserFeatureUsageWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "feature_userId">
 
 export type UserFeatureUsageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -351,6 +352,11 @@ export type UserFeatureUsageListRelationFilter = {
 
 export type UserFeatureUsageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type UserFeatureUsageFeatureUserIdCompoundUniqueInput = {
+  feature: $Enums.Function
+  userId: number
 }
 
 export type UserFeatureUsageCountOrderByAggregateInput = {

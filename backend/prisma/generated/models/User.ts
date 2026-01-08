@@ -38,6 +38,8 @@ export type UserMinAggregateOutputType = {
   id: number | null
   email: string | null
   name: string | null
+  ipAddress: string | null
+  userAgent: string | null
   googleId: string | null
   profilePicture: string | null
   userType: $Enums.UserType | null
@@ -49,6 +51,8 @@ export type UserMaxAggregateOutputType = {
   id: number | null
   email: string | null
   name: string | null
+  ipAddress: string | null
+  userAgent: string | null
   googleId: string | null
   profilePicture: string | null
   userType: $Enums.UserType | null
@@ -60,6 +64,8 @@ export type UserCountAggregateOutputType = {
   id: number
   email: number
   name: number
+  ipAddress: number
+  userAgent: number
   googleId: number
   profilePicture: number
   userType: number
@@ -81,6 +87,8 @@ export type UserMinAggregateInputType = {
   id?: true
   email?: true
   name?: true
+  ipAddress?: true
+  userAgent?: true
   googleId?: true
   profilePicture?: true
   userType?: true
@@ -92,6 +100,8 @@ export type UserMaxAggregateInputType = {
   id?: true
   email?: true
   name?: true
+  ipAddress?: true
+  userAgent?: true
   googleId?: true
   profilePicture?: true
   userType?: true
@@ -103,6 +113,8 @@ export type UserCountAggregateInputType = {
   id?: true
   email?: true
   name?: true
+  ipAddress?: true
+  userAgent?: true
   googleId?: true
   profilePicture?: true
   userType?: true
@@ -199,9 +211,11 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type UserGroupByOutputType = {
   id: number
-  email: string
+  email: string | null
   name: string | null
-  googleId: string
+  ipAddress: string
+  userAgent: string
+  googleId: string | null
   profilePicture: string | null
   userType: $Enums.UserType
   createdAt: Date
@@ -233,9 +247,11 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
-  email?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringNullableFilter<"User"> | string | null
   name?: Prisma.StringNullableFilter<"User"> | string | null
-  googleId?: Prisma.StringFilter<"User"> | string
+  ipAddress?: Prisma.StringFilter<"User"> | string
+  userAgent?: Prisma.StringFilter<"User"> | string
+  googleId?: Prisma.StringNullableFilter<"User"> | string | null
   profilePicture?: Prisma.StringNullableFilter<"User"> | string | null
   userType?: Prisma.EnumUserTypeFilter<"User"> | $Enums.UserType
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -245,9 +261,11 @@ export type UserWhereInput = {
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  email?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
-  googleId?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePicture?: Prisma.SortOrderInput | Prisma.SortOrder
   userType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -263,6 +281,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringNullableFilter<"User"> | string | null
+  ipAddress?: Prisma.StringFilter<"User"> | string
+  userAgent?: Prisma.StringFilter<"User"> | string
   profilePicture?: Prisma.StringNullableFilter<"User"> | string | null
   userType?: Prisma.EnumUserTypeFilter<"User"> | $Enums.UserType
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -272,9 +292,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  email?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
-  googleId?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePicture?: Prisma.SortOrderInput | Prisma.SortOrder
   userType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -291,9 +313,11 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
-  email?: Prisma.StringWithAggregatesFilter<"User"> | string
+  email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  googleId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  ipAddress?: Prisma.StringWithAggregatesFilter<"User"> | string
+  userAgent?: Prisma.StringWithAggregatesFilter<"User"> | string
+  googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   profilePicture?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   userType?: Prisma.EnumUserTypeWithAggregatesFilter<"User"> | $Enums.UserType
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -301,9 +325,11 @@ export type UserScalarWhereWithAggregatesInput = {
 }
 
 export type UserCreateInput = {
-  email: string
+  email?: string | null
   name?: string | null
-  googleId: string
+  ipAddress: string
+  userAgent: string
+  googleId?: string | null
   profilePicture?: string | null
   userType?: $Enums.UserType
   createdAt?: Date | string
@@ -313,9 +339,11 @@ export type UserCreateInput = {
 
 export type UserUncheckedCreateInput = {
   id?: number
-  email: string
+  email?: string | null
   name?: string | null
-  googleId: string
+  ipAddress: string
+  userAgent: string
+  googleId?: string | null
   profilePicture?: string | null
   userType?: $Enums.UserType
   createdAt?: Date | string
@@ -324,9 +352,11 @@ export type UserUncheckedCreateInput = {
 }
 
 export type UserUpdateInput = {
-  email?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userType?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -336,9 +366,11 @@ export type UserUpdateInput = {
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userType?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -348,9 +380,11 @@ export type UserUncheckedUpdateInput = {
 
 export type UserCreateManyInput = {
   id?: number
-  email: string
+  email?: string | null
   name?: string | null
-  googleId: string
+  ipAddress: string
+  userAgent: string
+  googleId?: string | null
   profilePicture?: string | null
   userType?: $Enums.UserType
   createdAt?: Date | string
@@ -358,9 +392,11 @@ export type UserCreateManyInput = {
 }
 
 export type UserUpdateManyMutationInput = {
-  email?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userType?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -369,9 +405,11 @@ export type UserUpdateManyMutationInput = {
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userType?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -382,6 +420,8 @@ export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   profilePicture?: Prisma.SortOrder
   userType?: Prisma.SortOrder
@@ -397,6 +437,8 @@ export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   profilePicture?: Prisma.SortOrder
   userType?: Prisma.SortOrder
@@ -408,6 +450,8 @@ export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   profilePicture?: Prisma.SortOrder
   userType?: Prisma.SortOrder
@@ -428,6 +472,26 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type EnumUserTypeFieldUpdateOperationsInput = {
+  set?: $Enums.UserType
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type UserCreateNestedOneWithoutFeaturesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutFeaturesInput, Prisma.UserUncheckedCreateWithoutFeaturesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutFeaturesInput
@@ -443,9 +507,11 @@ export type UserUpdateOneRequiredWithoutFeaturesNestedInput = {
 }
 
 export type UserCreateWithoutFeaturesInput = {
-  email: string
+  email?: string | null
   name?: string | null
-  googleId: string
+  ipAddress: string
+  userAgent: string
+  googleId?: string | null
   profilePicture?: string | null
   userType?: $Enums.UserType
   createdAt?: Date | string
@@ -454,9 +520,11 @@ export type UserCreateWithoutFeaturesInput = {
 
 export type UserUncheckedCreateWithoutFeaturesInput = {
   id?: number
-  email: string
+  email?: string | null
   name?: string | null
-  googleId: string
+  ipAddress: string
+  userAgent: string
+  googleId?: string | null
   profilePicture?: string | null
   userType?: $Enums.UserType
   createdAt?: Date | string
@@ -480,9 +548,11 @@ export type UserUpdateToOneWithWhereWithoutFeaturesInput = {
 }
 
 export type UserUpdateWithoutFeaturesInput = {
-  email?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userType?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -491,9 +561,11 @@ export type UserUpdateWithoutFeaturesInput = {
 
 export type UserUncheckedUpdateWithoutFeaturesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userType?: Prisma.EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -535,6 +607,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   email?: boolean
   name?: boolean
+  ipAddress?: boolean
+  userAgent?: boolean
   googleId?: boolean
   profilePicture?: boolean
   userType?: boolean
@@ -548,6 +622,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   email?: boolean
   name?: boolean
+  ipAddress?: boolean
+  userAgent?: boolean
   googleId?: boolean
   profilePicture?: boolean
   userType?: boolean
@@ -559,6 +635,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   email?: boolean
   name?: boolean
+  ipAddress?: boolean
+  userAgent?: boolean
   googleId?: boolean
   profilePicture?: boolean
   userType?: boolean
@@ -570,6 +648,8 @@ export type UserSelectScalar = {
   id?: boolean
   email?: boolean
   name?: boolean
+  ipAddress?: boolean
+  userAgent?: boolean
   googleId?: boolean
   profilePicture?: boolean
   userType?: boolean
@@ -577,7 +657,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "googleId" | "profilePicture" | "userType" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "ipAddress" | "userAgent" | "googleId" | "profilePicture" | "userType" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   features?: boolean | Prisma.User$featuresArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -592,9 +672,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    email: string
+    email: string | null
     name: string | null
-    googleId: string
+    ipAddress: string
+    userAgent: string
+    googleId: string | null
     profilePicture: string | null
     userType: $Enums.UserType
     createdAt: Date
@@ -1026,6 +1108,8 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly ipAddress: Prisma.FieldRef<"User", 'String'>
+  readonly userAgent: Prisma.FieldRef<"User", 'String'>
   readonly googleId: Prisma.FieldRef<"User", 'String'>
   readonly profilePicture: Prisma.FieldRef<"User", 'String'>
   readonly userType: Prisma.FieldRef<"User", 'UserType'>

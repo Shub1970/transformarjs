@@ -51,7 +51,6 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  GuestSession: 'GuestSession',
   User: 'User',
   UserFeatureUsage: 'UserFeatureUsage',
   LanguageList: 'LanguageList'
@@ -73,24 +72,12 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const GuestSessionScalarFieldEnum = {
-  id: 'id',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
-  sessionId: 'sessionId',
-  usageCount: 'usageCount',
-  userType: 'userType',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type GuestSessionScalarFieldEnum = (typeof GuestSessionScalarFieldEnum)[keyof typeof GuestSessionScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
   googleId: 'googleId',
   profilePicture: 'profilePicture',
   userType: 'userType',

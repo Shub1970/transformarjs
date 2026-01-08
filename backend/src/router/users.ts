@@ -1,7 +1,7 @@
 //user router
 import express from "express";
 import {
-  createGuestSession,
+  createGuestUser,
   googleAuthInit,
   googleAuthCallback,
   getCurrentUser,
@@ -12,7 +12,7 @@ import { authMiddlewar } from "../middleware/auth";
 const router = express.Router();
 
 // Guest login
-router.post("/guest-login", createGuestSession);
+router.get("/guest-login", createGuestUser);
 
 // Google OAuth
 router.get("/google", googleAuthInit);

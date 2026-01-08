@@ -384,7 +384,6 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  GuestSession: 'GuestSession',
   User: 'User',
   UserFeatureUsage: 'UserFeatureUsage',
   LanguageList: 'LanguageList'
@@ -403,84 +402,10 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guestSession" | "user" | "userFeatureUsage" | "languageList"
+    modelProps: "user" | "userFeatureUsage" | "languageList"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    GuestSession: {
-      payload: Prisma.$GuestSessionPayload<ExtArgs>
-      fields: Prisma.GuestSessionFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.GuestSessionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.GuestSessionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>
-        }
-        findFirst: {
-          args: Prisma.GuestSessionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.GuestSessionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>
-        }
-        findMany: {
-          args: Prisma.GuestSessionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>[]
-        }
-        create: {
-          args: Prisma.GuestSessionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>
-        }
-        createMany: {
-          args: Prisma.GuestSessionCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.GuestSessionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>[]
-        }
-        delete: {
-          args: Prisma.GuestSessionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>
-        }
-        update: {
-          args: Prisma.GuestSessionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>
-        }
-        deleteMany: {
-          args: Prisma.GuestSessionDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.GuestSessionUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.GuestSessionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>[]
-        }
-        upsert: {
-          args: Prisma.GuestSessionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestSessionPayload>
-        }
-        aggregate: {
-          args: Prisma.GuestSessionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateGuestSession>
-        }
-        groupBy: {
-          args: Prisma.GuestSessionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.GuestSessionGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.GuestSessionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.GuestSessionCountAggregateOutputType> | number
-        }
-      }
-    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -742,24 +667,12 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const GuestSessionScalarFieldEnum = {
-  id: 'id',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
-  sessionId: 'sessionId',
-  usageCount: 'usageCount',
-  userType: 'userType',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type GuestSessionScalarFieldEnum = (typeof GuestSessionScalarFieldEnum)[keyof typeof GuestSessionScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
   googleId: 'googleId',
   profilePicture: 'profilePicture',
   userType: 'userType',
@@ -1001,7 +914,6 @@ export type PrismaClientOptions = ({
   comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
-  guestSession?: Prisma.GuestSessionOmit
   user?: Prisma.UserOmit
   userFeatureUsage?: Prisma.UserFeatureUsageOmit
   languageList?: Prisma.LanguageListOmit

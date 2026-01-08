@@ -2,7 +2,7 @@ import "dotenv/config";
 import jwt, { SignOptions, JwtPayload as JwtLibPayload } from "jsonwebtoken";
 
 export interface AppJwtPayload {
-  userId: string;
+  userId: number;
   email?: string;
 }
 
@@ -27,10 +27,7 @@ export function verifyJWT(token: string): AppJwtPayload {
   if (!SECRET) {
     throw new Error("SECRET environment variable is not set");
   }
-  const decoded = jwt.verify(token, SECRET) as JwtLibPayload;
+  const decoded = jwt.verify(token, SECRET);
 
-  return {
-    userId: decoded.userId as string,
-    email: decoded.email as string | undefined,
-  };
+  return decoded as AppJwtPayload;
 }

@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { Code2, LogIn, LogOut } from "lucide-react";
 import { NavAuth } from "./NavAuth";

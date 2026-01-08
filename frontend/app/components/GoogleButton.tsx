@@ -3,7 +3,7 @@
 export default function GoogleButton() {
   return (
     <button
-      className="bg-white text-gray-800 hover:scale-105 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+      className="bg-black text-yellow-400 px-8 py-4 text-xl font-bold hover:scale-105 transition-transform flex items-center"
       onClick={() => {
         window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_API}/api/auth/google`;
       }}
@@ -28,7 +28,7 @@ export default function GoogleButton() {
           />
         </svg>
       </div>
-      Google Authentication
+      <p>Login with Google</p>
     </button>
   );
 }

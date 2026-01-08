@@ -8,7 +8,7 @@ import prisma from "./utils/connect";
 import errorHandler from "./errorHandler";
 import userRouter from "./router/users";
 import languageRouter from "./router/language";
-
+import featuresRouter from "./router/features";
 const app = express();
 app.use(
   cors({
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", userRouter);
 app.use("/api/languages", languageRouter);
-app.use("/api/features", featureRouter);
+app.use("/api/features", featuresRouter);
 
 app.use(errorHandler);
 const server = app.listen(port, () =>

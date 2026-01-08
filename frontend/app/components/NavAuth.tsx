@@ -25,22 +25,23 @@ export function NavAuth() {
       console.error("Error during logout:", error);
     }
   };
+  if (!isAuthenticated || !user) {
+    return "";
+  }
 
   return (
     <div className="flex items-center gap-4">
-      {isAuthenticated && user && (
-        <div className="flex items-center gap-4">
-          <span className="text-sm opacity-70 hidden sm:block">
-            Logged in as {user.name ?? "Guest"}
-          </span>
-          <button
-            onClick={handleLogout}
-            className="bg-yellow-400 text-black px-4 py-1 rounded-sm text-sm font-bold border-2 border-yellow-400 hover:bg-black hover:text-yellow-400 transition-all"
-          >
-            LOGOUT
-          </button>
-        </div>
-      )}
+      <div className="flex items-center gap-4">
+        <span className="text-sm opacity-70 hidden sm:block">
+          Logged in as {user.name ?? "Guest"}
+        </span>
+        <button
+          onClick={handleLogout}
+          className="bg-yellow-400 text-black px-4 py-1 rounded-sm text-sm font-bold border-2 border-yellow-400 hover:bg-black hover:text-yellow-400 transition-all"
+        >
+          LOGOUT
+        </button>
+      </div>
     </div>
   );
 }
