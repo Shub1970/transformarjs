@@ -2,7 +2,7 @@
 "use client";
 import { useAuthStore } from "@/lib/providers/auth-provider";
 export default function GuestButton() {
-  const { login } = useAuthStore();
+  const login = useAuthStore((state) => state.login);
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const response = await fetch(

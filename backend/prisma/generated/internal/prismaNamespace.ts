@@ -385,6 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   GuestSession: 'GuestSession',
+  User: 'User',
+  UserFeatureUsage: 'UserFeatureUsage',
   LanguageList: 'LanguageList'
 } as const
 
@@ -401,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "guestSession" | "languageList"
+    modelProps: "guestSession" | "user" | "userFeatureUsage" | "languageList"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -476,6 +478,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GuestSessionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GuestSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    User: {
+      payload: Prisma.$UserPayload<ExtArgs>
+      fields: Prisma.UserFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        findFirst: {
+          args: Prisma.UserFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        findMany: {
+          args: Prisma.UserFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+        }
+        create: {
+          args: Prisma.UserCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        createMany: {
+          args: Prisma.UserCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+        }
+        delete: {
+          args: Prisma.UserDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        update: {
+          args: Prisma.UserUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        aggregate: {
+          args: Prisma.UserAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUser>
+        }
+        groupBy: {
+          args: Prisma.UserGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserFeatureUsage: {
+      payload: Prisma.$UserFeatureUsagePayload<ExtArgs>
+      fields: Prisma.UserFeatureUsageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserFeatureUsageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserFeatureUsageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>
+        }
+        findFirst: {
+          args: Prisma.UserFeatureUsageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserFeatureUsageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>
+        }
+        findMany: {
+          args: Prisma.UserFeatureUsageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>[]
+        }
+        create: {
+          args: Prisma.UserFeatureUsageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>
+        }
+        createMany: {
+          args: Prisma.UserFeatureUsageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserFeatureUsageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>[]
+        }
+        delete: {
+          args: Prisma.UserFeatureUsageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>
+        }
+        update: {
+          args: Prisma.UserFeatureUsageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>
+        }
+        deleteMany: {
+          args: Prisma.UserFeatureUsageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserFeatureUsageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserFeatureUsageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>[]
+        }
+        upsert: {
+          args: Prisma.UserFeatureUsageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFeatureUsagePayload>
+        }
+        aggregate: {
+          args: Prisma.UserFeatureUsageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserFeatureUsage>
+        }
+        groupBy: {
+          args: Prisma.UserFeatureUsageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserFeatureUsageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserFeatureUsageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserFeatureUsageCountAggregateOutputType> | number
         }
       }
     }
@@ -606,6 +756,32 @@ export const GuestSessionScalarFieldEnum = {
 export type GuestSessionScalarFieldEnum = (typeof GuestSessionScalarFieldEnum)[keyof typeof GuestSessionScalarFieldEnum]
 
 
+export const UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  googleId: 'googleId',
+  profilePicture: 'profilePicture',
+  userType: 'userType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserFeatureUsageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  feature: 'feature',
+  useage: 'useage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserFeatureUsageScalarFieldEnum = (typeof UserFeatureUsageScalarFieldEnum)[keyof typeof UserFeatureUsageScalarFieldEnum]
+
+
 export const LanguageListScalarFieldEnum = {
   id: 'id',
   language: 'language',
@@ -700,6 +876,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Function'
+ */
+export type EnumFunctionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Function'>
+    
+
+
+/**
+ * Reference to a field of type 'Function[]'
+ */
+export type ListEnumFunctionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Function[]'>
     
 
 
@@ -812,6 +1002,8 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   guestSession?: Prisma.GuestSessionOmit
+  user?: Prisma.UserOmit
+  userFeatureUsage?: Prisma.UserFeatureUsageOmit
   languageList?: Prisma.LanguageListOmit
 }
 

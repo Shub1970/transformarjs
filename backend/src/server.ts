@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", userRouter);
 app.use("/api/languages", languageRouter);
+app.use("/api/features", featureRouter);
 
 app.use(errorHandler);
 const server = app.listen(port, () =>

@@ -10,8 +10,8 @@ type AuthResult = {
 export async function isAuth() {
   const cookieStore = cookies();
 
-  const accessToken = cookieStore.get("access_token")?.value;
-  const userType = cookieStore.get("user_type")?.value;
+  const accessToken = (await cookieStore).get("access_token")?.value;
+  const userType = (await cookieStore).get("user_type")?.value;
 
   if (!accessToken || !userType) {
     return { decoded: null, isAuthenticated: false };
@@ -31,7 +31,7 @@ export async function isAuth() {
 
 export async function getUserType() {
   const cookieStore = cookies();
-  return cookieStore.get("user_type")?.value ?? null;
+  return (await cookieStore).get("user_type")?.value ?? null;
 }
 
 // export async function deleteCookies(){}

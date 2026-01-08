@@ -32,9 +32,10 @@ const defautState: AuthState = {
 export const createAuthStore = (initialState: AuthState = defautState) => {
   return createStore<AuthStore>()((set) => ({
     ...initialState,
-    login: () => set(() => ({ isAuthenticated: true })),
-    logout: () => set(() => ({ isAuthenticated: false, user: null })),
-    setUser: (user: User | null) => set(() => ({ user })),
-    clearUser: () => set(() => ({ user: null })),
+    login: () => set((state) => ({ isAuthenticated: true, user: state.user })),
+    logout: () => set((state) => ({ isAuthenticated: false, user: null })),
+    setUser: (user: User | null) =>
+      set((state) => ({ user: user, isAuthenticated: true })),
+    clearUser: () => set(() => ({ user: null, isAuthenticated: false })),
   }));
 };

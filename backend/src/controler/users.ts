@@ -272,11 +272,7 @@ export async function getCurrentUser(
 }
 
 // Logout user
-export async function logout(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export async function logout(req: Request, res: Response, next: NextFunction) {
   try {
     // Clear cookies
     res.clearCookie("access_token");

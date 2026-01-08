@@ -11,8 +11,8 @@ export default function Home() {
             Everything.
           </h1>
           <p className="text-xl md:text-2xl font-medium max-w-2xl mx-auto leading-relaxed">
-            Harness the power of browser-native AI and Gemini Pro. Background
-            removal, lightning-fast translation, and generative art all in one
+            Harness the power of browser-native AI. Background removal,
+            lightning-fast translation, and generative art all in one
             yellow-tinted workspace.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -28,16 +28,15 @@ export default function Home() {
               <li>✓ No signup required</li>
               <li>✓ Basic on-device models</li>
               <li>✓ Limited to 5 uses</li>
-              <li>✗ No 4K Generation</li>
+              <li>✗ No image Generation</li>
             </ul>
           </div>
           <div className="border-4 border-black p-8 bg-black text-yellow-400 -rotate-1">
             <h3 className="text-2xl font-black mb-4 uppercase">Auth Access</h3>
             <ul className="space-y-2 font-medium">
               <li>✓ Unlimited transformations</li>
-              <li>✓ Pro Gemini Reasoning</li>
-              <li>✓ 4K Image Generation</li>
-              <li>✓ Cloud Sync</li>
+              <li>✓ Reasoning</li>
+              <li>✓ Image Generation</li>
             </ul>
           </div>
         </section>

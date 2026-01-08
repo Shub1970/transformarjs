@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum UserType {\n  GUEST\n  AUTHENTICATED\n}\n\nmodel GuestSession {\n  id         Int      @id @default(autoincrement())\n  ipAddress  String   @map(\"ip_address\")\n  userAgent  String   @map(\"user_agent\")\n  sessionId  String   @unique @map(\"session_id\")\n  usageCount Int?     @default(5) @map(\"usage_count\")\n  userType   UserType @default(GUEST)\n  createdAt  DateTime @default(now()) @map(\"created_at\")\n  updatedAt  DateTime @updatedAt @map(\"updated_at\")\n\n  @@index([ipAddress, sessionId])\n  @@map(\"guest_session\")\n}\n\nmodel LanguageList {\n  id            Int      @id @default(autoincrement())\n  language      String   @unique\n  language_code String   @unique\n  createdAt     DateTime @default(now()) @map(\"created_at\")\n  updatedAt     DateTime @updatedAt @map(\"updated_at\")\n\n  @@index([language_code, language])\n  @@map(\"language_lists\")\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum UserType {\n  GUEST\n  AUTHENTICATED\n}\n\nenum Function {\n  TRANSLATE\n  BACKGROUNDREMOVE\n  VOICECHAT\n}\n\nmodel GuestSession {\n  id         Int      @id @default(autoincrement())\n  ipAddress  String   @map(\"ip_address\")\n  userAgent  String   @map(\"user_agent\")\n  sessionId  String   @unique @map(\"session_id\")\n  usageCount Int?     @default(5) @map(\"usage_count\")\n  userType   UserType @default(GUEST)\n  createdAt  DateTime @default(now()) @map(\"created_at\")\n  updatedAt  DateTime @updatedAt @map(\"updated_at\")\n\n  @@index([ipAddress, sessionId])\n  @@map(\"guest_session\")\n}\n\nmodel User {\n  id             Int                @id @default(autoincrement())\n  email          String             @unique\n  name           String?\n  googleId       String             @unique @map(\"google_id\")\n  profilePicture String?            @map(\"profile_picture\")\n  features       UserFeatureUsage[]\n  userType       UserType           @default(AUTHENTICATED)\n  createdAt      DateTime           @default(now()) @map(\"created_at\")\n  updatedAt      DateTime           @updatedAt @map(\"updated_at\")\n\n  @@index([email, googleId])\n  @@map(\"users\")\n}\n\nmodel UserFeatureUsage {\n  id        Int      @id @default(autoincrement())\n  userId    Int\n  feature   Function\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  useage    Int      @default(0)\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@index([feature, userId])\n  @@index([userId])\n  @@map(\"features\")\n}\n\nmodel LanguageList {\n  id            Int      @id @default(autoincrement())\n  language      String   @unique\n  language_code String   @unique\n  createdAt     DateTime @default(now()) @map(\"created_at\")\n  updatedAt     DateTime @updatedAt @map(\"updated_at\")\n\n  @@index([language_code, language])\n  @@map(\"language_lists\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"GuestSession\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"ip_address\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"user_agent\"},{\"name\":\"sessionId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"session_id\"},{\"name\":\"usageCount\",\"kind\":\"scalar\",\"type\":\"Int\",\"dbName\":\"usage_count\"},{\"name\":\"userType\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"guest_session\"},\"LanguageList\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"language\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"language_code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"language_lists\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"GuestSession\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"ip_address\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"user_agent\"},{\"name\":\"sessionId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"session_id\"},{\"name\":\"usageCount\",\"kind\":\"scalar\",\"type\":\"Int\",\"dbName\":\"usage_count\"},{\"name\":\"userType\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"guest_session\"},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"googleId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"google_id\"},{\"name\":\"profilePicture\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"profile_picture\"},{\"name\":\"features\",\"kind\":\"object\",\"type\":\"UserFeatureUsage\",\"relationName\":\"UserToUserFeatureUsage\"},{\"name\":\"userType\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"users\"},\"UserFeatureUsage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"feature\",\"kind\":\"enum\",\"type\":\"Function\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserFeatureUsage\"},{\"name\":\"useage\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"features\"},\"LanguageList\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"language\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"language_code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"language_lists\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -183,6 +183,26 @@ export interface PrismaClient<
     * ```
     */
   get guestSession(): Prisma.GuestSessionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.userFeatureUsage`: Exposes CRUD operations for the **UserFeatureUsage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserFeatureUsages
+    * const userFeatureUsages = await prisma.userFeatureUsage.findMany()
+    * ```
+    */
+  get userFeatureUsage(): Prisma.UserFeatureUsageDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.languageList`: Exposes CRUD operations for the **LanguageList** model.
