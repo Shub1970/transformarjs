@@ -181,6 +181,23 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
 }
 
+export type EnumFunctionFilter<$PrismaModel = never> = {
+  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFunctionFilter<$PrismaModel> | $Enums.Function
+}
+
+export type EnumFunctionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFunctionWithAggregatesFilter<$PrismaModel> | $Enums.Function
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -359,6 +376,23 @@ export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumFunctionFilter<$PrismaModel = never> = {
+  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFunctionFilter<$PrismaModel> | $Enums.Function
+}
+
+export type NestedEnumFunctionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFunctionWithAggregatesFilter<$PrismaModel> | $Enums.Function
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
 }
 
 

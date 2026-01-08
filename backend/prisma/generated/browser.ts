@@ -28,6 +28,11 @@ export type GuestSession = Prisma.GuestSessionModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model UserFeatureUsage
+ * 
+ */
+export type UserFeatureUsage = Prisma.UserFeatureUsageModel
+/**
  * Model LanguageList
  * 
  */

@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   GuestSession: 'GuestSession',
   User: 'User',
+  UserFeatureUsage: 'UserFeatureUsage',
   LanguageList: 'LanguageList'
 } as const
 
@@ -98,6 +99,18 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserFeatureUsageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  feature: 'feature',
+  useage: 'useage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserFeatureUsageScalarFieldEnum = (typeof UserFeatureUsageScalarFieldEnum)[keyof typeof UserFeatureUsageScalarFieldEnum]
 
 
 export const LanguageListScalarFieldEnum = {
