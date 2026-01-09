@@ -1,4 +1,5 @@
 import { createStore } from "zustand/vanilla";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export type User = {
   id?: number;
@@ -30,12 +31,20 @@ const defautState: AuthState = {
 };
 
 export const createAuthStore = (initialState: AuthState = defautState) => {
-  return createStore<AuthStore>()((set) => ({
-    ...initialState,
-    login: () => set((state) => ({ isAuthenticated: true, user: state.user })),
-    logout: () => set((state) => ({ isAuthenticated: false, user: null })),
-    setUser: (user: User | null) =>
-      set((state) => ({ user: user, isAuthenticated: true })),
-    clearUser: () => set(() => ({ user: null, isAuthenticated: false })),
-  }));
+  return createStore<AuthStore>()(
+    persist(
+      (set) => ({
+        ...initialState,
+        login: () => set((state) => ({ isAuthenticated: true, user: state.user })),
+        logout: () => set((state) => ({ isAuthenticated: false, user: null })),
+        setUser: (user: User | null) =>
+          set((state) => ({ user: user, isAuthenticated: true })),
+        clearUser: () => set(() => ({ user: null, isAuthenticated: false })),
+      }),
+      {
+        name: "auth-storage", // localStorage key
+        storage: createJSONStorage(() => localStorage),
+      }
+    )
+  );
 };

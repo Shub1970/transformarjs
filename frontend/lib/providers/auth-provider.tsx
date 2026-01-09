@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useState, createContext, useContext } from "react";
+import { type ReactNode, useState, createContext, useContext, useEffect } from "react";
 import { useStore } from "zustand";
 import { type AuthStore, createAuthStore } from "../stores/auth-store";
 
@@ -15,10 +15,16 @@ type AuthStoreContextPops = {
 
 export function AuthStoreProvider({ children }: AuthStoreContextPops) {
   const [store] = useState(() => createAuthStore());
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Handle hydration from localStorage
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   return (
     <AuthStoreContext.Provider value={store}>
-      {children}
+      {isHydrated ? children : null}
     </AuthStoreContext.Provider>
   );
 }
