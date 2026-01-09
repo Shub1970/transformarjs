@@ -9,8 +9,6 @@ export default function AuthSuccessPage() {
 
   const { setUser } = useAuthStore((state) => state);
 
-  // 🔒 guard to ensure one-time execution
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -25,7 +23,6 @@ export default function AuthSuccessPage() {
         }
 
         const data = await response.json();
-        console.log("user data", data);
 
         if (!data?.success || !data?.user) {
           router.push("/?error=auth_failed");

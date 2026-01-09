@@ -793,16 +793,16 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Function'
+ * Reference to a field of type 'UserFunction'
  */
-export type EnumFunctionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Function'>
+export type EnumUserFunctionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserFunction'>
     
 
 
 /**
- * Reference to a field of type 'Function[]'
+ * Reference to a field of type 'UserFunction[]'
  */
-export type ListEnumFunctionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Function[]'>
+export type ListEnumUserFunctionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserFunction[]'>
     
 
 

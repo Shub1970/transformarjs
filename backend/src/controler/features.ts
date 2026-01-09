@@ -3,7 +3,27 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyJWT } from "../utils/jwt";
 import prisma from "../utils/connect";
-import { Function } from "../../prisma/generated/enums";
+import { UserFunction } from "../../prisma/generated/enums";
+const FeatureMap = {
+  TRANSLATE: UserFunction.TRANSLATE,
+  BACKGROUNDREMOVE: UserFunction.BACKGROUNDREMOVE,
+  VOICECHAT: UserFunction.VOICECHAT,
+} as const;
+
+function parseFeature(value: unknown): UserFunction {
+  if (typeof value !== "string") {
+    throw new Error("feature must be a string");
+  }
+
+  const feature = FeatureMap[value.toUpperCase() as keyof typeof FeatureMap];
+  console.log("feature parse", feature);
+  if (!feature) {
+    throw new Error(`Invalid feature: ${value}`);
+  }
+
+  return feature;
+}
+
 export async function UserFeatureCreate(
   req: Request,
   res: Response,
@@ -12,45 +32,38 @@ export async function UserFeatureCreate(
   try {
     const cooki = req.cookies;
     const access_token = cooki.access_token;
-    const user_type = cooki.user_type;
     if (!access_token) {
-      res.status(401).json({
-        success: false,
-        message: "not authorize",
+      return res.status(401).json({
+        status: "failed",
+        message: "not authenticated",
       });
     }
-    const decoded = verifyJWT(access_token);
-    const queryFeature: string = req.body.feature;
-    const feature: Function = queryFeature.toUpperCase() as Function;
-    const response = await prisma.userFeatureUsage.upsert({
+    const decode = verifyJWT(access_token);
+    const feature = req.body.feature;
+    const upperFeature = parseFeature(feature);
+
+    await prisma.userFeatureUsage.upsert({
       where: {
-        userId_feature: {
-          userId: decoded.userId as number,
-          feature: feature,
+        feature_userId: {
+          userId: decode.userId,
+          feature: upperFeature,
         },
       },
       create: {
-        userId: decoded.userId,
-        feature: feature,
+        userId: decode.userId,
+        feature: upperFeature,
         useage: 1,
       },
       update: {
         useage: { increment: 1 },
       },
     });
-    res.status(201).json({
-      success: true,
-      message: "succefull feature update and created",
-    });
+
+    res.status(201).json({ success: true });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: `error: ${err}`,
-    });
     next(err);
   }
 }
-
 export async function GetTotalFeatureUsage(
   req: Request,
   res: Response,
@@ -63,7 +76,7 @@ export async function GetTotalFeatureUsage(
     if (!access_token) {
       res.status(401).json({
         success: false,
-        message: "not authorize",
+        message: "",
       });
       return;
     }

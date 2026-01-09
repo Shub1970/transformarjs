@@ -154,21 +154,21 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
-export type EnumFunctionFilter<$PrismaModel = never> = {
-  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
-  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumFunctionFilter<$PrismaModel> | $Enums.Function
+export type EnumUserFunctionFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserFunction | Prisma.EnumUserFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserFunctionFilter<$PrismaModel> | $Enums.UserFunction
 }
 
-export type EnumFunctionWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
-  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumFunctionWithAggregatesFilter<$PrismaModel> | $Enums.Function
+export type EnumUserFunctionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserFunction | Prisma.EnumUserFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserFunctionWithAggregatesFilter<$PrismaModel> | $Enums.UserFunction
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserFunctionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserFunctionFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -324,21 +324,21 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
-export type NestedEnumFunctionFilter<$PrismaModel = never> = {
-  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
-  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumFunctionFilter<$PrismaModel> | $Enums.Function
+export type NestedEnumUserFunctionFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserFunction | Prisma.EnumUserFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserFunctionFilter<$PrismaModel> | $Enums.UserFunction
 }
 
-export type NestedEnumFunctionWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.Function | Prisma.EnumFunctionFieldRefInput<$PrismaModel>
-  in?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Function[] | Prisma.ListEnumFunctionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumFunctionWithAggregatesFilter<$PrismaModel> | $Enums.Function
+export type NestedEnumUserFunctionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserFunction | Prisma.EnumUserFunctionFieldRefInput<$PrismaModel>
+  in?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserFunction[] | Prisma.ListEnumUserFunctionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserFunctionWithAggregatesFilter<$PrismaModel> | $Enums.UserFunction
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumFunctionFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserFunctionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserFunctionFilter<$PrismaModel>
 }
 
 

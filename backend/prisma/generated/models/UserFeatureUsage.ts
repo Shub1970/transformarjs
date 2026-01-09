@@ -41,7 +41,7 @@ export type UserFeatureUsageSumAggregateOutputType = {
 export type UserFeatureUsageMinAggregateOutputType = {
   id: number | null
   userId: number | null
-  feature: $Enums.Function | null
+  feature: $Enums.UserFunction | null
   useage: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,7 +50,7 @@ export type UserFeatureUsageMinAggregateOutputType = {
 export type UserFeatureUsageMaxAggregateOutputType = {
   id: number | null
   userId: number | null
-  feature: $Enums.Function | null
+  feature: $Enums.UserFunction | null
   useage: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -196,7 +196,7 @@ export type UserFeatureUsageGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type UserFeatureUsageGroupByOutputType = {
   id: number
   userId: number
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage: number
   createdAt: Date
   updatedAt: Date
@@ -228,7 +228,7 @@ export type UserFeatureUsageWhereInput = {
   NOT?: Prisma.UserFeatureUsageWhereInput | Prisma.UserFeatureUsageWhereInput[]
   id?: Prisma.IntFilter<"UserFeatureUsage"> | number
   userId?: Prisma.IntFilter<"UserFeatureUsage"> | number
-  feature?: Prisma.EnumFunctionFilter<"UserFeatureUsage"> | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFilter<"UserFeatureUsage"> | $Enums.UserFunction
   useage?: Prisma.IntFilter<"UserFeatureUsage"> | number
   createdAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
@@ -252,7 +252,7 @@ export type UserFeatureUsageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserFeatureUsageWhereInput[]
   NOT?: Prisma.UserFeatureUsageWhereInput | Prisma.UserFeatureUsageWhereInput[]
   userId?: Prisma.IntFilter<"UserFeatureUsage"> | number
-  feature?: Prisma.EnumFunctionFilter<"UserFeatureUsage"> | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFilter<"UserFeatureUsage"> | $Enums.UserFunction
   useage?: Prisma.IntFilter<"UserFeatureUsage"> | number
   createdAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
@@ -279,14 +279,14 @@ export type UserFeatureUsageScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserFeatureUsageScalarWhereWithAggregatesInput | Prisma.UserFeatureUsageScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"UserFeatureUsage"> | number
   userId?: Prisma.IntWithAggregatesFilter<"UserFeatureUsage"> | number
-  feature?: Prisma.EnumFunctionWithAggregatesFilter<"UserFeatureUsage"> | $Enums.Function
+  feature?: Prisma.EnumUserFunctionWithAggregatesFilter<"UserFeatureUsage"> | $Enums.UserFunction
   useage?: Prisma.IntWithAggregatesFilter<"UserFeatureUsage"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserFeatureUsage"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UserFeatureUsage"> | Date | string
 }
 
 export type UserFeatureUsageCreateInput = {
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -296,14 +296,14 @@ export type UserFeatureUsageCreateInput = {
 export type UserFeatureUsageUncheckedCreateInput = {
   id?: number
   userId: number
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UserFeatureUsageUpdateInput = {
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -313,7 +313,7 @@ export type UserFeatureUsageUpdateInput = {
 export type UserFeatureUsageUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -322,14 +322,14 @@ export type UserFeatureUsageUncheckedUpdateInput = {
 export type UserFeatureUsageCreateManyInput = {
   id?: number
   userId: number
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UserFeatureUsageUpdateManyMutationInput = {
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,7 +338,7 @@ export type UserFeatureUsageUpdateManyMutationInput = {
 export type UserFeatureUsageUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -355,7 +355,7 @@ export type UserFeatureUsageOrderByRelationAggregateInput = {
 }
 
 export type UserFeatureUsageFeatureUserIdCompoundUniqueInput = {
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   userId: number
 }
 
@@ -440,12 +440,12 @@ export type UserFeatureUsageUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UserFeatureUsageScalarWhereInput | Prisma.UserFeatureUsageScalarWhereInput[]
 }
 
-export type EnumFunctionFieldUpdateOperationsInput = {
-  set?: $Enums.Function
+export type EnumUserFunctionFieldUpdateOperationsInput = {
+  set?: $Enums.UserFunction
 }
 
 export type UserFeatureUsageCreateWithoutUserInput = {
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -453,7 +453,7 @@ export type UserFeatureUsageCreateWithoutUserInput = {
 
 export type UserFeatureUsageUncheckedCreateWithoutUserInput = {
   id?: number
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -491,7 +491,7 @@ export type UserFeatureUsageScalarWhereInput = {
   NOT?: Prisma.UserFeatureUsageScalarWhereInput | Prisma.UserFeatureUsageScalarWhereInput[]
   id?: Prisma.IntFilter<"UserFeatureUsage"> | number
   userId?: Prisma.IntFilter<"UserFeatureUsage"> | number
-  feature?: Prisma.EnumFunctionFilter<"UserFeatureUsage"> | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFilter<"UserFeatureUsage"> | $Enums.UserFunction
   useage?: Prisma.IntFilter<"UserFeatureUsage"> | number
   createdAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserFeatureUsage"> | Date | string
@@ -499,14 +499,14 @@ export type UserFeatureUsageScalarWhereInput = {
 
 export type UserFeatureUsageCreateManyUserInput = {
   id?: number
-  feature: $Enums.Function
+  feature: $Enums.UserFunction
   useage?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UserFeatureUsageUpdateWithoutUserInput = {
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -514,7 +514,7 @@ export type UserFeatureUsageUpdateWithoutUserInput = {
 
 export type UserFeatureUsageUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -522,7 +522,7 @@ export type UserFeatureUsageUncheckedUpdateWithoutUserInput = {
 
 export type UserFeatureUsageUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  feature?: Prisma.EnumFunctionFieldUpdateOperationsInput | $Enums.Function
+  feature?: Prisma.EnumUserFunctionFieldUpdateOperationsInput | $Enums.UserFunction
   useage?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -588,7 +588,7 @@ export type $UserFeatureUsagePayload<ExtArgs extends runtime.Types.Extensions.In
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     userId: number
-    feature: $Enums.Function
+    feature: $Enums.UserFunction
     useage: number
     createdAt: Date
     updatedAt: Date
@@ -1018,7 +1018,7 @@ export interface Prisma__UserFeatureUsageClient<T, Null = never, ExtArgs extends
 export interface UserFeatureUsageFieldRefs {
   readonly id: Prisma.FieldRef<"UserFeatureUsage", 'Int'>
   readonly userId: Prisma.FieldRef<"UserFeatureUsage", 'Int'>
-  readonly feature: Prisma.FieldRef<"UserFeatureUsage", 'Function'>
+  readonly feature: Prisma.FieldRef<"UserFeatureUsage", 'UserFunction'>
   readonly useage: Prisma.FieldRef<"UserFeatureUsage", 'Int'>
   readonly createdAt: Prisma.FieldRef<"UserFeatureUsage", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UserFeatureUsage", 'DateTime'>

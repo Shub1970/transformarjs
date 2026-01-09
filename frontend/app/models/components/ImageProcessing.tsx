@@ -1,7 +1,10 @@
+"use client";
 import { Button } from "@/components/ui/button";
+import { useAuthStore } from "@/lib/providers/auth-provider";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
 export default function ImageProcessing() {
+  const { incrementUserCount } = useAuthStore((state) => state);
   const [progress, setProgress] = useState("idle");
   const [imageURL, setImageURL] = useState("");
   const [imageData, setImageData] = useState<any>(null);
@@ -32,6 +35,40 @@ export default function ImageProcessing() {
     worker.current.addEventListener("message", handleProgress);
     return () => worker.current?.removeEventListener("message", handleProgress);
   }, []);
+
+  useEffect(() => {
+    async function updateFeature(feat: string = "BACKGROUNDREMOVE") {
+      const body = {
+        feature: feat,
+      };
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/features`,
+          {
+            headers: {
+              "content-type": "application/json",
+            },
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(body),
+          },
+        );
+
+        if (!response.ok) {
+          const error = await response.text();
+          console.log(`error while updating feature usage: ${error}`);
+        }
+
+        incrementUserCount();
+      } catch (err) {
+        console.log("error while sending feature update");
+      }
+    }
+
+    if (progress === "complete") {
+      updateFeature();
+    }
+  }, [progress]);
 
   useEffect(() => {
     if (!imageData) return;

@@ -12,7 +12,7 @@ enum UserType {
         AUTHENTICATED
 }
 
-enum Function {
+enum UserFunction {
         TRANSLATE
         BACKGROUNDREMOVE
         VOICECHAT
@@ -38,14 +38,13 @@ model User {
 model UserFeatureUsage {
         id        Int      @id @default(autoincrement())
         userId    Int
-        feature   Function
+        feature  UserFunction 
         user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
         useage    Int      @default(0)
         createdAt DateTime @default(now()) @map("created_at")
         updatedAt DateTime @updatedAt @map("updated_at")
 
         @@unique([feature, userId])
-        @@index([feature, userId])
         @@index([userId])
         @@map("features")
 }

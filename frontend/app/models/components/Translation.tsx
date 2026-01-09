@@ -5,17 +5,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { LanguageCombo } from "./SelectLanguage";
 import CustomTextArea from "./CustomTextArea";
 import ProgressBar from "./ProgressBar";
+import { json } from "stream/consumers";
+import { useAuthStore } from "@/lib/providers/auth-provider";
 
 interface languageTranslation {
   src_lang: string;
   tgt_lang: string;
 }
 export default function LanguageTranslator() {
+  const { incrementUserCount } = useAuthStore((state) => state);
   const [isLoading, setIsLoading] = useState("Translate");
   const [languageTranslation, setLanguageTranslation] =
     useState<languageTranslation>({ src_lang: "", tgt_lang: "" });
   const [inputText, setInputText] = useState("");
-  const [outputText, setOutputText] = useState("");
+  const [outputText, setOutputText] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const worker = useRef<Worker | null>(null);
   function setSrcLang(lang: string) {
@@ -49,7 +52,7 @@ export default function LanguageTranslator() {
           setIsLoading("Progress");
           break;
         case "complete":
-          setIsLoading("Translate");
+          setIsLoading("Complete");
           setOutputText(e.data.output[0]?.translation_text);
           break;
       }
@@ -59,6 +62,39 @@ export default function LanguageTranslator() {
     return () =>
       worker.current.removeEventListener("message", on_message_recevied);
   }, []);
+
+  useEffect(() => {
+    async function updateFeature(feat: string = "TRANSLATE") {
+      const body = {
+        feature: feat,
+      };
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/features`,
+          {
+            headers: {
+              "content-type": "application/json",
+            },
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(body),
+          },
+        );
+
+        if (!response.ok) {
+          const error = await response.text();
+          console.log(`error while updating feature usage: ${error}`);
+        }
+        incrementUserCount();
+      } catch (err) {
+        console.log("error while sending feature update");
+      }
+    }
+
+    if (isLoading === "Complete") {
+      updateFeature();
+    }
+  }, [isLoading]);
 
   const translateText = useCallback(
     (text: string, { src_lang, tgt_lang }: languageTranslation) => {
@@ -104,7 +140,7 @@ export default function LanguageTranslator() {
           />
         </div>
       </div>
-      {isLoading === "Translate" ? (
+      {isLoading === "Translate" || isLoading === "Complete" ? (
         <button
           onClick={(e) =>
             translateText(inputText, {

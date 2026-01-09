@@ -20,10 +20,6 @@ export default function Models() {
             Browser-Native & Hybrid AI Engines
           </p>
         </div>
-        <div className="text-right">
-          <div className="text-xs font-bold uppercase">Usage Left</div>
-          <div className="text-2xl font-black">5</div>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
