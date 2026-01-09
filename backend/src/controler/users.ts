@@ -64,7 +64,6 @@ export async function createGuestUser(
 
     res.redirect(`${process.env.FRONTEND_URL}/auth/success?user_type=guest`);
   } catch (err) {
-    console.error("Error during Google OAuth callback:", err);
     res.redirect(`${process.env.FRONTEND_URL}?error=auth_failed`);
     next(err);
   }
@@ -201,6 +200,15 @@ export async function getCurrentUser(
       where: { id: decoded.userId },
     });
 
+    const result = await prisma.userFeatureUsage.aggregate({
+      where: {
+        userId: decoded.userId as number,
+      },
+      _sum: {
+        useage: true,
+      },
+    });
+
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -215,6 +223,7 @@ export async function getCurrentUser(
           id: user.id,
           name: user.name,
           userType: "guest",
+          usageCount: result?._sum?.useage ?? 0,
         },
       });
     }
@@ -226,6 +235,7 @@ export async function getCurrentUser(
         name: user.name,
         profilePicture: user.profilePicture,
         userType: "authenticated",
+        usageCount: result?._sum?.useage ?? 0,
       },
     });
   } catch (err) {

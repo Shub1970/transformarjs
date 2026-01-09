@@ -17,10 +17,10 @@ export const UserType = {
 export type UserType = (typeof UserType)[keyof typeof UserType]
 
 
-export const Function = {
+export const UserFunction = {
   TRANSLATE: 'TRANSLATE',
   BACKGROUNDREMOVE: 'BACKGROUNDREMOVE',
   VOICECHAT: 'VOICECHAT'
 } as const
 
-export type Function = (typeof Function)[keyof typeof Function]
+export type UserFunction = (typeof UserFunction)[keyof typeof UserFunction]
